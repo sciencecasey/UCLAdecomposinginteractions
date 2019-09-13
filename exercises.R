@@ -14,6 +14,9 @@ library(ggplot2)
 dat$prog <- factor(dat$prog,labels=c("jog","swim","read"))
 dat$gender <- factor(dat$gender,labels=c("male","female"))
 
+#export tsv
+write.csv(dat, file = "data.csv")
+
 #a4) get descriptives#
 summary(dat)
 
@@ -22,9 +25,10 @@ summary(dat)
 #Ex2) linear model of loss on hours#
 conteffort <- lm(loss~effort,data=dat)
 summary(conteffort)
-#predicted weight loss at Effort = 30#
 (mylist <- list(effort=30))
 emmeans(conteffort, ~ effort, at=mylist)
+##using the same model as above, if we set effort to 30 (instead of zero), what is the estimated effect on weight loss (emmean= estimated marginal means for a factor)
+#optionally known as comparisons or constrasts/least-squares meand
 
 #Ex3) overall slope of Hours#
 cont <- lm(loss~hours,data=dat)
